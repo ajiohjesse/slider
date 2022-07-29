@@ -1,18 +1,19 @@
 class Slider {
-  constructor(time) {
+  constructor(time, animation) {
     //===variables and Internal functions===//
 
     const slides = document.querySelectorAll(".slide");
-    const className = "fade-in";
+    const playBtn = document.querySelector(".slider-play-btn");
+    const pauseBtn = document.querySelector(".slider-pause-btn");
 
     let count = 1;
     let intervalId;
 
     const changeSlide = index => {
       slides.forEach(slide => {
-        slide.classList.remove(className);
+        slide.classList.remove(animation);
       });
-      slides[index].classList.add(className);
+      slides[index].classList.add(animation);
     };
 
     const slideLoop = () => {
@@ -30,17 +31,29 @@ class Slider {
 
     this.sliderNode = document.querySelector(".slider");
 
-    this.pause = () => {
-      clearInterval(intervalId);
-    };
-
     this.play = () => {
       intervalId = setInterval(slideLoop, time);
+    };
+
+    this.pause = () => {
+      clearInterval(intervalId);
     };
 
     //===Event listeners===//
 
     document.addEventListener("DOMContentLoaded", changeSlide(0));
+
+    pauseBtn.addEventListener("click", () => {
+      this.pause();
+      pauseBtn.classList.add("hide");
+      playBtn.classList.remove("hide");
+    });
+
+    playBtn.addEventListener("click", () => {
+      this.play();
+      playBtn.classList.add("hide");
+      pauseBtn.classList.remove("hide");
+    });
 
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
@@ -52,6 +65,4 @@ class Slider {
   }
 }
 
-const slider = new Slider(3000);
-
-slider.play();
+export default Slider;
