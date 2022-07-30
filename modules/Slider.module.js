@@ -1,9 +1,11 @@
 class Slider {
-  constructor(time, animation) {
+  constructor(props) {
+    const { id, timer, animation } = props;
     //===variables and Internal functions===//
-    const slides = document.querySelectorAll(".slide");
-    const playBtn = document.querySelector(".slider-play-btn");
-    const pauseBtn = document.querySelector(".slider-pause-btn");
+    const sliderNode = document.getElementById(id);
+    const slides = sliderNode.querySelectorAll(".slide");
+    const playBtn = sliderNode.querySelector(".slider-play-btn");
+    const pauseBtn = sliderNode.querySelector(".slider-pause-btn");
     let count = 1;
     let sliderInterval;
     const changeSlide = index => {
@@ -23,21 +25,20 @@ class Slider {
       }
     };
     //===Methods===//
-    this.sliderNode = document.querySelector(".slider");
     this.play = () => {
-      sliderInterval = setInterval(slideLoop, time);
+      sliderInterval = setInterval(slideLoop, timer ? timer : 5000);
     };
     this.pause = () => {
       clearInterval(sliderInterval);
     };
     //===Event listeners===//
     document.addEventListener("DOMContentLoaded", changeSlide(0));
-    pauseBtn.addEventListener("click", () => {
+    pauseBtn?.addEventListener("click", () => {
       this.pause();
       pauseBtn.classList.add("hide");
       playBtn.classList.remove("hide");
     });
-    playBtn.addEventListener("click", () => {
+    playBtn?.addEventListener("click", () => {
       this.play();
       playBtn.classList.add("hide");
       pauseBtn.classList.remove("hide");

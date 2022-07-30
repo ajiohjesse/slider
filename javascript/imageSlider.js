@@ -1,4 +1,10 @@
-import Slider from "../Javascript modules/Slider.module.js";
+import Slider from "../modules/Slider.module.js";
 
-const slider = new Slider(4000, "fade-in");
-slider.play();
+const hero = {
+  id: "heroSlider",
+  timer: 4000,
+  animation: "slide-in",
+};
+
+const heroSlider = new Slider(hero);
+heroSlider.play();
