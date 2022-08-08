@@ -7,7 +7,7 @@
   overflow: hidden;
 }
 
-.slide {
+.slider > .slide {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -19,10 +19,10 @@
   overflow: hidden;
 }
 
-.slide img {
+.slider > .slide img {
   height: 100%;
 }
-.slide .text {
+.slider > .slide .text {
   width: 100%;
   height: 100%;
   background-color: rgba(2, 7, 15, 0.514);
@@ -30,7 +30,7 @@
   place-items: center;
 }
 
-.slide .text h2 {
+.slider > .slide .text h2 {
   width: max-content;
   font-size: 2rem;
   text-align: center;
@@ -89,6 +89,34 @@
   to {
     opacity: 1;
   }
+}
+
+/* color slider */
+
+.secondSliderContainer {
+  height: 50px;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+
+.secondSlider {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.black {
+  background-color: black;
+}
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: blue;
+}
+.green {
+  background-color: green;
 }
 
 /* text silder */

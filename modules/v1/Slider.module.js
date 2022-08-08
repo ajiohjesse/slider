@@ -1,58 +1,19 @@
 class Slider {
   constructor(props) {
-    let id, timer, animation;
-    if (typeof props === "object") {
-      id = props.id;
-      timer = props.timer;
-      animation = props.animation;
-    } else {
-      id = props;
-    }
-
-    //====== VARIABLES AND INTERNAL FUNCTIONS ========//
+    const { id, timer, animation } = props;
+    //===variables and Internal functions===//
     const sliderNode = document.getElementById(id);
     const slides = sliderNode.querySelectorAll(".slide");
     const playBtn = sliderNode.querySelector(".slider-play-btn");
     const pauseBtn = sliderNode.querySelector(".slider-pause-btn");
     let count = 1;
     let sliderInterval;
-
-    //check for custom animation
-    if (!animation) {
-      sliderNode.style.position = "relative";
-      slides.forEach(slide => {
-        slide.style.width = "100%";
-        slide.style.height = "100%";
-        slide.style.position = "absolute";
-        slide.style.top = 0;
-        slide.style.left = 0;
-        slide.style.opacity = 0.8;
-        slide.style.width = 0;
-        slide.style.transition = "all 1.5s cubic-bezier(0.7, 0.07, 0.52, 1.01)";
-        slide.style.overflow = "hidden";
-      });
-    }
-
-    //carries out the actual changing of slides
     const changeSlide = index => {
       slides.forEach(slide => {
-        if (animation) {
-          slide.classList.remove(animation);
-        } else {
-          slide.style.width = 0;
-          slide.style.opacity = 0;
-        }
+        slide.classList.remove(animation);
       });
-
-      if (animation) {
-        slides[index].classList.add(animation);
-      } else {
-        slides[index].style.width = "100%";
-        slides[index].style.opacity = 1;
-      }
+      slides[index].classList.add(animation);
     };
-
-    //called each time slide is to be changed
     const slideLoop = () => {
       if (count < slides.length) {
         changeSlide(count);
@@ -63,16 +24,14 @@ class Slider {
         count++;
       }
     };
-
-    //======== METHODS ==========//
+    //===Methods===//
     this.play = () => {
       sliderInterval = setInterval(slideLoop, timer ? timer : 5000);
     };
     this.pause = () => {
       clearInterval(sliderInterval);
     };
-
-    //========== EVENT LISTENERS ============//
+    //===Event listeners===//
     document.addEventListener("DOMContentLoaded", changeSlide(0));
     pauseBtn?.addEventListener("click", () => {
       this.pause();
