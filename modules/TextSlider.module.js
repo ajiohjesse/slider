@@ -1,7 +1,13 @@
 class TextSlider {
   constructor(props) {
-    const { id, timer, interval, introAnimation, outroAnimation, textArray } =
-      props;
+    const { 
+      id,
+      timer,
+      interval,
+      introAnimation,
+      outroAnimation,
+      text: textArray,
+    } = props;
     //===variables and Internal functions===//
     const slider = document.getElementById(id);
     let count = 1;
@@ -12,7 +18,7 @@ class TextSlider {
         const span = document.createElement("span");
         setTimeout(() => {
           span.append(char);
-          span.classList.add(introAnimation);
+          introAnimation ? span.classList.add(introAnimation) : "";
         }, 100 * (index * (interval ? interval : 0)));
         slider.append(span);
       });
@@ -20,10 +26,10 @@ class TextSlider {
     const slideLoop = () => {
       if (count >= textArray.length) {
         count = 0;
-        slider.classList.add(outroAnimation ? outroAnimation : "");
+        outroAnimation ? slider.classList.add(outroAnimation) : "";
         setTimeout(() => {
           slider.innerHTML = "";
-          slider.classList.remove(outroAnimation ? outroAnimation : "");
+          outroAnimation ? slider.classList.remove(outroAnimation) : "";
         }, 500);
         setTimeout(() => {
           renderText(count);
@@ -31,10 +37,10 @@ class TextSlider {
         }, 600);
         return;
       }
-      slider.classList.add(outroAnimation ? outroAnimation : "");
+      outroAnimation ? slider.classList.add(outroAnimation) : "";
       setTimeout(() => {
         slider.innerHTML = "";
-        slider.classList.remove(outroAnimation ? outroAnimation : "");
+        outroAnimation ? slider.classList.remove(outroAnimation) : "";
       }, 500);
       setTimeout(() => {
         renderText(count);

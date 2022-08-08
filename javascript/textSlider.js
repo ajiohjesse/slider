@@ -5,7 +5,7 @@ const services = {
   timer: 5000,
   introAnimation: "slide-up",
   outroAnimation: "fade-out",
-  textArray: ["an experience", "a website", "a mobile app", "a front end app"],
+  text: ["an experience", "a website", "a mobile app", "a front end app"],
 };
 const clients = {
   id: "client",
@@ -13,7 +13,7 @@ const clients = {
   interval: 1,
   introAnimation: "slide-up",
   outroAnimation: "fade-out",
-  textArray: ["business.", "company.", "brand."],
+  text: ["business.", "company.", "brand."],
 };
 
 const serviceSlider = new TextSlider(services);
