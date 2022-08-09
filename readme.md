@@ -1,6 +1,6 @@
-# **SLIDER PROJECT**
+# **`SLIDER PROJECT`**
 
-This project contains some JavaScript powered carousels built mainly for fun. These carousels can however be easily integrated into any javascript project or website.
+This project contains some JavaScript powered carousels that can be easily integrated into any website.
 
 ## **Carousels**
 
@@ -9,7 +9,7 @@ This project contains some JavaScript powered carousels built mainly for fun. Th
 
 ## **Functionality**
 
-The functionality for each carousel is defined as a JavaScript class which resides in **_.module.js_** files inside the **modules** folder.
+The functionality for each carousel is defined in a JavaScript class which resides in **_.module.js_** files inside the **modules** folder.
 
 ---
 
@@ -29,11 +29,13 @@ Create a new instance of the slider;
 
 ```JavaScript
 const slider = new Slider(props);
+Slider.play();
 
 const textSlider = new TextSlider(props);
+textSlider.play();
 ```
 
-Each slider class receives an argument of **props** which is a Javascript object.
+Each new instance of a slider requires you to pass an argument of **props** which is a Javascript object.
 
 ---
 
@@ -41,36 +43,62 @@ Each slider class receives an argument of **props** which is a Javascript object
 
 ---
 
-- ## Slider.module.js
+- ## `Slider.module.js`
 
-**Slider.module.js** recieves an object with _id_, _timer_, and _animation_ keys as props. Each key-value pair except timer is **required** for the slider to work.
+**Slider.module.js** recieves an object with _`id`_, _`timer`_, and _`animation`_ keys as props. However, Only the _`'Id'`_ is required for the slider to work and as such can be passed as the only argument.
 
 ```JavaScript
 props = {
-id: "heroSlider",
-timer: 4000,
-animation: "slide-in",
+id: "heroSlider", //String
+timer: 4000, //Number
+animation: "slide-in", //String
 }
 ```
 
-- **id** refers to the id attribute given to the html element that houses the slides e.g
+- **`id`:** refers to the `id` attribute given to the html element that houses the slides e.g
 
   ```html
-  <div id="heroSlider">
+  <div class="container" id="heroSlider">
     <div class="slide">...</div>
     <div class="slide">...</div>
     <div class="slide">...</div>
   </div>
   ```
 
-- **timer** refers to the time interval before each slide is changed. Its value is defined as a number in milliseconds e.g 4000 for 4 seconds. If timer is not defined, it'll default to 5000.
+  ### Note:
 
-- **animation:** The slides inside the HTML slider container should be configured in such a way that they are hidden by default. This can be achieved for example by setting the width property of each slide to 0.
+  Only the `id` is mandatory as a props argument when creating a new slide instance. As such, this slider can be initialized with zero configuration by only passing in the `id` as a string argument. e.g
+
+  ```javascript
+  const slider = new Slider("heroSlider");
+
+  Slider.play();
+  ```
+
+- **`timer`:** refers to the time interval before each slide is changed. Its value is defined as a number in milliseconds e.g 4000 for 4 seconds. If timer is not defined, it'll default to 5000.
+
+- **`animation`:** This property is not required for the slide to work as the slide has its own built-in animation effect. However, if you wish to use your own custom animation for the slides, then follow, this method:
+
+  Each HTML slide element inside the slider container should be configured in such a way that they are hidden by default. This can be achieved for example by;
+
+  - Giving them a position of absolute, relative to the container. This is to ensure that the slides stack on-top of each other and only the last one is visible.
+  - Setting the width or opacity of each slide to 0 using css.
 
   ```css
+  .container {
+    width: 300px;
+    height: 300px;
+    position: relative
+  }
+
   .slide {
+    height: 100%;
     width: 0;
     opacity 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 500ms ease;
   }
   ```
 
@@ -83,9 +111,9 @@ animation: "slide-in",
   }
   ```
 
-  Animation refers to the name of this new CSS class that makes the slide visible. In this case, the name is **_slide-in_**.
+  `Animation` refers to the name of this new CSS class that makes the slide visible. In this case, the name is **_`slide-in`_** and can be passed as part of the props object.
 
-### Methods:
+## Methods:
 
 Every slider class has two methods;
 
@@ -97,7 +125,9 @@ slider.play() //adds a setInterval()
 slider.pause() //clears the interval
 ```
 
-After defining the props object and passing it as an argument when creating a new instance of a slider, call the _play_ method on the slider to initiate the slide show.
+> ## Important
+>
+>After defining the props object and passing it as an argument when creating a new instance of a slider, call the _`play`_ method on the slider to initiate the slide show.
 
 ---
 
@@ -109,12 +139,12 @@ After defining the props object and passing it as an argument when creating a ne
 
 ```html
 <div id="heroSlider">
+  <div class="slide">...</div>
+  <div class="slide">...</div>
+  <div class="slide">...</div>
+
   <button class="slider-play-btn">...</button>
   <button class="slider-pause-btn">...</button>
-
-  <div class="slide">...</div>
-  <div class="slide">...</div>
-  <div class="slide">...</div>
 </div>
 ```
 
@@ -122,44 +152,51 @@ After defining the props object and passing it as an argument when creating a ne
 
 > ### **Note:**
 >
-> By default, every slider pauses automatically in situations where the HTML document is not visible or loses focus. Such situations include when another browser tab is opened.
+> By default, every slider is paused automatically in situations where the HTML document is not visible or loses focus. Such situations include when another browser tab is opened. The slider resumes play only when the document becomes visible again.
 
 ---
 
-- ## TextSlider.module.js
+- ## `TextSlider.module.js`
 
-**TextSlider.module.js** functions similarly to **Slider.module.js**, the only difference beign that **TextSlider** is customized for text and as such recieves a props argument with a few more key-value pairs.
+**`TextSlider.module.js`** functions similarly to **`Slider.module.js`**, the only difference beign that **`TextSlider`** is customized for text and as such recieves a props argument with a few more key-value pairs.
 
-The props for this slider contains _id_, _timer_, _interval_, _introAnimation_, _outroAnimation_ and _textArray_. Of this key-value pairs, only the **id** and **textArray** is **required** for the slider to work.
+The props for this slider contains _`id`_, _`timer`_, _`interval`_, _`introAnimation`_, _`outroAnimation`_ and _`text`_. Of this key-value pairs, only the **`id`** and **`text`** is **required** for the slider to work.
 
 ```JavaScript
 props = {
-  id: "heroTextSlider",
-  timer: 5000,
-  interval: 1,
-  introAnimation: "slide-up",
-  outroAnimation: "fade-out",
-  textArray: ["business.", "company.", "brand."],
+  id: "heroTextSlider", //String
+  timer: 5000, //Number
+  interval: 1, //Number
+  introAnimation: "slide-up", //String
+  outroAnimation: "fade-out", //String
+  text: ["business.", "company.", "brand."], //Array
 }
 ```
 
-- **id** refers to the id attribute given to the html element that will house each text from the textArray e.g
+- **`id`:** refers to the id attribute given to the html element that will house each text from the `text` array e.g
 
   ```html
-  <h1 id="heroTextSlider"></h1>
+  <h1>
+    Hello
+    <span id="heroTextSlider">[text goes here]</span>
+  </h1>
   ```
 
-- **timer** refers to the time interval before each new text is rendered. Its value is defined as a number in milliseconds e.g 4000 for 4 seconds. If timer is not defined, it'll default to 5000.
+- **`timer`:** refers to the time interval before each new text is rendered. Its value is defined as a number in milliseconds e.g 4000 for 4 seconds. If timer is not defined, it'll default to 5000.
 
-- **interval:** If you wish to create a wave effect by rendering each character in the **text** from the **textArray** at a different speed, then specify an interval.
+- **`interval`:** If you wish to create an effect by rendering each character in the **text** from the **`text` array** at a different speed, then specify an interval.
 
   _Interval_ is specified as a number. The higher the number, the slower the characters in the text will be rendered and vice versa.
 
   If _interval_ is not defined, it'll default to 0 which means there'll be no time difference between each character and the text will be rendered at once as a single word.
 
-- **introAnimation** refers to a CSS class that'll be applied to each **character** in the text beign rendered. It can be customized to add a beautiful entry animation for the characters.
-- **outroAnimation** refers to a CSS class that'll be applied to the previously renderd text before it is removed prior to another render cycle. It can be customized to add a beautiful exit animation for the text.
+- **`introAnimation`** refers to a CSS class that'll be applied to each **character** in the text beign rendered. It can be customized to add a beautiful entry animation for the characters.
+- **`outroAnimation`** refers to a CSS class that'll be applied to the previously renderd text before it is removed from the DOM prior to another render cycle. It can be customized to add a beautiful exit animation for the text.
 
   **Note:** introAnimation is applied to each character or alphabet in the text while outroAnimation is aplied to the entire text.
 
-- **textArray** refers to a Javascript array/list of strings or texts to be rendered by the textSlider. Add as many texts as needed.
+- **`text`:** refers to a Javascript array/list of strings or texts to be rendered by the textSlider. Add as many texts as needed.
+
+> ### Note:
+>
+>The `id` and `text` array must always be suplied as `props` in order for the textSlider to work. As such, the props for this particular slider is always an Object and never a String.
