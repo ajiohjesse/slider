@@ -1,4 +1,4 @@
-import Slider from "../modules/Slider.module.js";
+import Slider from "../modules/Slider.js";
 
 const hero = {
   id: "heroSlider",
@@ -6,7 +6,7 @@ const hero = {
   animation: "slide-in",
 };
 
-const heroSlider = new Slider(hero);
+const heroSlider = new Slider("heroSlider");
 heroSlider.play();
 
 const secondSlider = new Slider("secondSlider");

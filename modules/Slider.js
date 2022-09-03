@@ -1,4 +1,17 @@
 class Slider {
+  /**
+   *@params id: String or Props = {
+   * id: String,
+   * timer: Number,
+   * animation: String,
+   * }
+   *
+   * @returns a slider object with the methods play() and pause().
+   * The "id" is the only mandatroy argument.
+   *
+   * @copyright RehxMedia. Designed by Jesse Ajioh.
+   */
+
   constructor(props) {
     let id, timer, animation;
     if (typeof props === "object") {
@@ -26,8 +39,7 @@ class Slider {
         slide.style.position = "absolute";
         slide.style.top = 0;
         slide.style.left = 0;
-        slide.style.opacity = 0.8;
-        slide.style.width = 0;
+        slide.style.opacity = 0;
         slide.style.transition = "all 1.5s cubic-bezier(0.7, 0.07, 0.52, 1.01)";
         slide.style.overflow = "hidden";
       });
@@ -39,7 +51,6 @@ class Slider {
         if (animation) {
           slide.classList.remove(animation);
         } else {
-          slide.style.width = 0;
           slide.style.opacity = 0;
         }
       });
@@ -47,7 +58,6 @@ class Slider {
       if (animation) {
         slides[index].classList.add(animation);
       } else {
-        slides[index].style.width = "100%";
         slides[index].style.opacity = 1;
       }
     };

@@ -1,4 +1,4 @@
-import TextSlider from "../modules/TextSlider.module.js";
+import TextSlider from "../modules/TextSlider.js";
 
 const services = {
   id: "service",
